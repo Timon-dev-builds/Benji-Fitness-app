@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#101114">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ForgeFit">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon.svg">
+<title>ForgeFit — Fitness & voeding</title>
+<style>
+:root{color-scheme:dark;--bg:#101114;--panel:#191b20;--panel2:#22252c;--line:#30333b;--text:#f4f5f7;--muted:#a4a8b2;--accent:#b7f34a;--accent2:#8bc52d;--red:#ff7777}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding-bottom:90px}button,input,select{font:inherit}button{cursor:pointer}
+header{padding:22px 18px 14px;display:flex;align-items:center;justify-content:space-between;gap:12px} .brand{font-size:22px;font-weight:900;letter-spacing:-.7px}.brand span{color:var(--accent)}.eyebrow{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1.6px;margin-bottom:4px}
+main{max-width:760px;margin:auto;padding:0 14px}.page{display:none}.page.active{display:block}.section-title{font-size:21px;font-weight:850;letter-spacing:-.4px;margin:12px 4px}.sub{color:var(--muted);font-size:13px;line-height:1.45}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.card{background:var(--panel);border:1px solid var(--line);border-radius:17px;padding:15px;margin-bottom:11px}.stat-label{font-size:12px;color:var(--muted);margin-bottom:7px}.stat-value{font-size:26px;font-weight:850;letter-spacing:-.8px}.stat-value small{font-size:12px;color:var(--muted);font-weight:600;letter-spacing:0}.accent{color:var(--accent)}.progress{height:7px;background:#343740;border-radius:20px;overflow:hidden;margin-top:12px}.progress>div{height:100%;background:var(--accent);border-radius:20px;width:0;transition:width .2s}.row{display:flex;align-items:center;justify-content:space-between;gap:12px}.stack{display:flex;flex-direction:column;gap:9px}
+h3{font-size:15px;margin:0 0 12px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}label{font-size:12px;color:var(--muted)}input,select{width:100%;min-width:0;background:#101216;color:var(--text);border:1px solid #3a3d46;border-radius:10px;padding:12px 11px;outline:none}input:focus,select:focus{border-color:var(--accent)}.btn{border:0;border-radius:11px;padding:12px 15px;background:var(--accent);color:#151811;font-weight:850}.btn:active{transform:scale(.99)}.btn.secondary{background:var(--panel2);border:1px solid var(--line);color:var(--text)}.btn.danger{background:#3a2024;color:#ffb6bb}.btn.small{padding:7px 10px;font-size:12px}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.list{display:flex;flex-direction:column;gap:8px}.item{background:#202229;border-radius:12px;padding:11px 12px;display:flex;align-items:center;justify-content:space-between;gap:10px}.item-title{font-weight:750}.item-meta{font-size:12px;color:var(--muted);margin-top:4px}.pill{font-size:11px;background:#2d3324;color:var(--accent);padding:5px 8px;border-radius:99px;white-space:nowrap}.empty{padding:18px 12px;text-align:center;color:var(--muted);font-size:13px;border:1px dashed var(--line);border-radius:12px}
+nav{position:fixed;z-index:5;bottom:0;left:0;right:0;background:rgba(19,20,24,.96);backdrop-filter:blur(15px);border-top:1px solid var(--line);padding:8px 6px calc(8px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(5,1fr);gap:3px}nav button{border:0;background:transparent;color:var(--muted);padding:7px 2px;border-radius:10px;font-size:10px;font-weight:700}nav button .ico{display:block;font-size:19px;margin-bottom:3px}nav button.active{color:var(--accent);background:#252a20}
+.chart{height:150px;position:relative;margin-top:12px;border-bottom:1px solid var(--line);background:repeating-linear-gradient(to bottom,transparent 0,transparent 36px,#2c2e35 37px)}.chart svg{width:100%;height:100%;overflow:visible}.chart-empty{display:grid;place-items:center;height:100%;color:var(--muted);font-size:12px}
+.macroline{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.macrobox{background:#22252c;border-radius:11px;padding:10px}.macrobox strong{display:block;font-size:17px}.macrobox span{font-size:11px;color:var(--muted)}
+.notice{font-size:12px;color:var(--muted);line-height:1.5}.divider{height:1px;background:var(--line);margin:12px 0}.top-actions{display:flex;gap:7px}.tiny{font-size:11px;color:var(--muted)}.hidden{display:none!important}
+@media(min-width:600px){body{padding-bottom:24px}nav{position:sticky;top:0;bottom:auto;max-width:760px;margin:0 auto;border:1px solid var(--line);border-radius:14px;padding:7px;grid-template-columns:repeat(5,1fr)}header{max-width:760px;margin:auto;padding-left:14px;padding-right:14px}.stat-value{font-size:30px}}
+</style>
+</head>
+<body>
+<header>
+  <div><div class="eyebrow">JOUW TRAINING. JOUW DATA.</div><div class="brand">FORGE<span>FIT</span></div></div>
+  <div class="top-actions"><button class="btn secondary small" id="exportBtn" title="Back-up maken">Back-up</button></div>
+</header>
+<main>
+<section id="home" class="page active">
+  <div class="row"><div><div class="section-title">Dashboard</div><div class="sub" id="todayLabel"></div></div><button class="btn small" onclick="go('food')">+ Log voeding</button></div>
+  <div class="grid" style="margin-top:12px">
+    <div class="card"><div class="stat-label">Calorieën vandaag</div><div class="stat-value"><span id="dashKcal">0</span><small> kcal</small></div><div class="progress"><div id="kcalBar"></div></div><div class="tiny" id="kcalTargetText">Doel niet ingesteld</div></div>
+    <div class="card"><div class="stat-label">Eiwit vandaag</div><div class="stat-value"><span id="dashProtein">0</span><small> g</small></div><div class="progress"><div id="proteinBar"></div></div><div class="tiny" id="proteinTargetText">Doel niet ingesteld</div></div>
+    <div class="card"><div class="stat-label">Laatste gewicht</div><div class="stat-value" id="dashWeight">—<small> kg</small></div><div class="tiny" id="dashWeightChange">Log je eerste meting</div></div>
+    <div class="card"><div class="stat-label">Trainingen gelogd</div><div class="stat-value" id="dashWorkouts">0</div><div class="tiny">Totaal opgeslagen sessies</div></div>
+  </div>
+  <div class="card"><div class="row"><h3 style="margin:0">Macro's vandaag</h3><span class="tiny">handmatig bijgehouden</span></div><div class="macroline"><div class="macrobox"><strong id="dashCarbs">0 g</strong><span>Koolhydraten</span></div><div class="macrobox"><strong id="dashFat">0 g</strong><span>Vetten</span></div><div class="macrobox"><strong id="dashMeals">0</strong><span>Items</span></div></div></div>
+  <div class="card"><div class="row"><h3 style="margin:0">Snelle acties</h3></div><div class="actions"><button class="btn secondary" onclick="go('workout')">＋ Training loggen</button><button class="btn secondary" onclick="go('progress')">＋ Gewicht loggen</button><button class="btn secondary" onclick="go('goals')">Doelen instellen</button></div></div>
+  <div class="notice">Je gegevens worden alleen op dit apparaat opgeslagen. Maak af en toe een back-up via de knop rechtsboven.</div>
+</section>
+<section id="food" class="page">
+  <div class="section-title">Voeding</div><p class="sub">Voeg zelf maaltijden en voedingswaarden toe. De totalen worden automatisch opgeteld.</p>
+  <div class="card"><h3>Voeding toevoegen</h3><form id="foodForm"><div class="form-grid">
+    <div class="field full"><label for="foodName">Maaltijd / voedingsmiddel</label><input id="foodName" required placeholder="Bijv. havermout met whey"></div>
+    <div class="field"><label for="foodKcal">Calorieën (kcal)</label><input id="foodKcal" type="number" min="0" step="1" required placeholder="450"></div>
+    <div class="field"><label for="foodProtein">Eiwit (g)</label><input id="foodProtein" type="number" min="0" step=".1" value="0" required></div>
+    <div class="field"><label for="foodCarbs">Koolhydraten (g)</label><input id="foodCarbs" type="number" min="0" step=".1" value="0" required></div>
+    <div class="field"><label for="foodFat">Vet (g)</label><input id="foodFat" type="number" min="0" step=".1" value="0" required></div>
+  </div><div class="actions"><button class="btn" type="submit">Voeding toevoegen</button></div></form></div>
+  <div class="card"><div class="row"><h3 style="margin:0">Vandaag</h3><strong id="foodTotal" class="accent">0 kcal</strong></div><div class="macroline"><div class="macrobox"><strong id="foodP">0 g</strong><span>Eiwit</span></div><div class="macrobox"><strong id="foodC">0 g</strong><span>Koolhydraten</span></div><div class="macrobox"><strong id="foodF">0 g</strong><span>Vet</span></div></div><div class="divider"></div><div id="foodList" class="list"></div><div class="actions"><button class="btn secondary small" id="clearFoodBtn">Wis voeding van vandaag</button></div></div>
+</section>
+<section id="workout" class="page">
+  <div class="section-title">Workout tracker</div><p class="sub">Leg oefeningen, sets, herhalingen en gewichten vast.</p>
+  <div class="card"><h3>Training toevoegen</h3><form id="workoutForm"><div class="form-grid">
+    <div class="field full"><label for="workoutName">Training / oefening</label><input id="workoutName" required placeholder="Bijv. Bench press — borst"></div>
+    <div class="field"><label for="sets">Sets</label><input id="sets" type="number" min="1" step="1" value="3" required></div>
+    <div class="field"><label for="reps">Herhalingen</label><input id="reps" type="number" min="1" step="1" value="10" required></div>
+    <div class="field"><label for="weightLifted">Gewicht (kg)</label><input id="weightLifted" type="number" min="0" step=".5" value="0" required></div>
+    <div class="field"><label for="workoutDate">Datum</label><input id="workoutDate" type="date" required></div>
+  </div><div class="actions"><button class="btn" type="submit">Oefening opslaan</button></div></form></div>
+  <div class="card"><div class="row"><h3 style="margin:0">Traininggeschiedenis</h3><span id="workoutCount" class="pill">0 logs</span></div><div class="divider"></div><div id="workoutList" class="list"></div></div>
+  <div class="card"><h3>Persoonlijke records</h3><p class="sub">Hoogste geregistreerde gewicht per oefening. Log je sets bij elke training om records bij te houden.</p><div id="recordsList" class="list"></div></div>
+</section>
+<section id="progress" class="page">
+  <div class="section-title">Voortgang</div><p class="sub">Houd je lichaamsgewicht en lichaamsvetpercentage bij en bekijk je trend.</p>
+  <div class="card"><h3>Meting toevoegen</h3><form id="measureForm"><div class="form-grid">
+    <div class="field"><label for="measureWeight">Gewicht (kg)</label><input id="measureWeight" type="number" min="0" step=".1" required placeholder="70.0"></div>
+    <div class="field"><label for="measureFat">Vetpercentage (%)</label><input id="measureFat" type="number" min="0" max="100" step=".1" placeholder="16.5"></div>
+    <div class="field full"><label for="measureDate">Datum</label><input id="measureDate" type="date" required></div>
+  </div><div class="actions"><button class="btn" type="submit">Meting opslaan</button></div></form></div>
+  <div class="card"><h3>Gewichtstrend</h3><div id="weightChart" class="chart"><div class="chart-empty">Voeg minimaal twee metingen toe</div></div><div id="weightHistory" class="list" style="margin-top:12px"></div></div>
+  <div class="card"><h3>Vetpercentage trend</h3><div id="fatChart" class="chart"><div class="chart-empty">Voeg metingen met vetpercentage toe</div></div></div>
+</section>
+<section id="goals" class="page">
+  <div class="section-title">Doelen & caloriebehoefte</div><p class="sub">Schat je onderhoudsbehoefte en stel dagelijkse doelen in.</p>
+  <div class="card"><h3>Bereken caloriebehoefte</h3><form id="calcForm"><div class="form-grid">
+    <div class="field"><label for="age">Leeftijd</label><input id="age" type="number" min="15" max="100" value="26" required></div>
+    <div class="field"><label for="sex">Rekenformule</label><select id="sex"><option value="male">Man</option><option value="female">Vrouw</option></select></div>
+    <div class="field"><label for="height">Lengte (cm)</label><input id="height" type="number" min="100" max="250" value="179" required></div>
+    <div class="field"><label for="currentWeight">Gewicht (kg)</label><input id="currentWeight" type="number" min="30" max="350" step=".1" value="70" required></div>
+    <div class="field full"><label for="activity">Activiteitsniveau</label><select id="activity"><option value="1.2">Weinig actief — vooral zitten</option><option value="1.375">Licht actief — lichte beweging</option><option value="1.55" selected>Gemiddeld actief — sporten 3–5×/week</option><option value="1.725">Zeer actief — zwaar trainen / actief werk</option><option value="1.9">Extreem actief — zwaar werk en veel sport</option></select></div>
+    <div class="field full"><label for="goalType">Doel</label><select id="goalType"><option value="maintain">Gewicht behouden</option><option value="cut">Afvallen (rustig tekort)</option><option value="bulk">Spiermassa opbouwen (klein overschot)</option></select></div>
+  </div><div class="actions"><button class="btn" type="submit">Bereken mijn doelen</button></div></form>
+  <div id="calcResult" class="hidden"><div class="divider"></div><div class="grid"><div><div class="stat-label">Geschat onderhoud</div><div class="stat-value" id="maintenance">—</div><div class="tiny">kcal per dag</div></div><div><div class="stat-label">Aanbevolen startdoel</div><div class="stat-value accent" id="recommended">—</div><div class="tiny">kcal per dag</div></div></div><p class="notice" id="calcNote" style="margin-top:12px"></p><button class="btn secondary" id="applyCalories" type="button">Gebruik als dagelijks doel</button></div>
+  </div>
+  <div class="card"><h3>Dagelijkse doelen</h3><form id="goalsForm"><div class="form-grid">
+    <div class="field"><label for="targetKcal">Calorieën (kcal)</label><input id="targetKcal" type="number" min="0" step="10" placeholder="2200"></div>
+    <div class="field"><label for="targetProtein">Eiwit (g)</label><input id="targetProtein" type="number" min="0" step="1" placeholder="150"></div>
+    <div class="field"><label for="targetCarbs">Koolhydraten (g)</label><input id="targetCarbs" type="number" min="0" step="1" placeholder="250"></div>
+    <div class="field"><label for="targetFat">Vet (g)</label><input id="targetFat" type="number" min="0" step="1" placeholder="70"></div>
+  </div><div class="actions"><button class="btn" type="submit">Doelen opslaan</button></div></form><p class="notice">Caloriecalculaties zijn schattingen, geen medisch advies. Pas doelen aan op basis van je voortgang, honger, energie en advies van een professional.</p></div>
+  <div class="card"><h3>Gegevens & privacy</h3><p class="notice">Alles wordt lokaal opgeslagen in deze browser. Er is geen account en geen synchronisatie. Gebruik Back-up om gegevens als JSON-bestand te exporteren of importeer een eerdere back-up.</p><div class="actions"><button class="btn secondary" id="importBtn">Back-up importeren</button><input id="importFile" type="file" accept=".json,application/json" class="hidden"><button class="btn danger" id="resetBtn">Wis alle gegevens</button></div></div>
+</section>
+</main>
+<nav>
+<button class="active" data-page="home"><span class="ico">◈</span>Home</button>
+<button data-page="food"><span class="ico">＋</span>Voeding</button>
+<button data-page="workout"><span class="ico">↗</span>Training</button>
+<button data-page="progress"><span class="ico">⌁</span>Voortgang</button>
+<button data-page="goals"><span class="ico">◎</span>Doelen</button>
+</nav>
+<script>
+const KEY='forgefit-data-v1';
+const today=()=>new Date().toLocaleDateString('sv-SE');
+const blank=()=>({food:[],workouts:[],measurements:[],goals:{kcal:0,protein:0,carbs:0,fat:0}});
+let data=load();
+function load(){try{return {...blank(),...JSON.parse(localStorage.getItem(KEY)||'{}')}}catch(e){return blank()}}
+function save(){localStorage.setItem(KEY,JSON.stringify(data));render()}
+function num(id){return Number(document.getElementById(id).value)||0}
+function fmt(n){return Math.round((Number(n)||0)*10)/10}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function go(id){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));window.scrollTo({top:0,behavior:'smooth'});render()}
+document.querySelectorAll('nav button').forEach(b=>b.addEventListener('click',()=>go(b.dataset.page)));
+document.getElementById('todayLabel').textContent=new Date().toLocaleDateString('nl-NL',{weekday:'long',day:'numeric',month:'long'});
+document.getElementById('workoutDate').value=today();document.getElementById('measureDate').value=today();
+document.getElementById('foodForm').addEventListener('submit',e=>{e.preventDefault();data.food.push({id:crypto.randomUUID(),date:today(),name:document.getElementById('foodName').value.trim(),kcal:num('foodKcal'),protein:num('foodProtein'),carbs:num('foodCarbs'),fat:num('foodFat')});e.target.reset();['foodProtein','foodCarbs','foodFat'].forEach(id=>document.getElementById(id).value=0);save()});
+document.getElementById('clearFoodBtn').addEventListener('click',()=>{if(confirm('Alle voedingsitems van vandaag verwijderen?')){data.food=data.food.filter(x=>x.date!==today());save()}});
+document.getElementById('workoutForm').addEventListener('submit',e=>{e.preventDefault();data.workouts.push({id:crypto.randomUUID(),name:document.getElementById('workoutName').value.trim(),sets:num('sets'),reps:num('reps'),weight:num('weightLifted'),date:document.getElementById('workoutDate').value||today()});document.getElementById('workoutName').value='';save()});
+document.getElementById('measureForm').addEventListener('submit',e=>{e.preventDefault();data.measurements.push({id:crypto.randomUUID(),weight:num('measureWeight'),fat:document.getElementById('measureFat').value===''?null:num('measureFat'),date:document.getElementById('measureDate').value||today()});save();document.getElementById('measureWeight').value='';document.getElementById('measureFat').value=''});
+document.getElementById('goalsForm').addEventListener('submit',e=>{e.preventDefault();data.goals={kcal:num('targetKcal'),protein:num('targetProtein'),carbs:num('targetCarbs'),fat:num('targetFat')};save();alert('Dagelijkse doelen opgeslagen.')});
+let calculatedCalories=0;
+document.getElementById('calcForm').addEventListener('submit',e=>{e.preventDefault();const age=num('age'),h=num('height'),w=num('currentWeight'),sex=document.getElementById('sex').value,act=num('activity'),goal=document.getElementById('goalType').value;const bmr=10*w+6.25*h-5*age+(sex==='male'?5:-161);const maint=Math.round(bmr*act);calculatedCalories=Math.round(maint+(goal==='cut'?-300:goal==='bulk'?200:0));document.getElementById('maintenance').textContent=maint.toLocaleString('nl-NL');document.getElementById('recommended').textContent=calculatedCalories.toLocaleString('nl-NL');document.getElementById('calcNote').textContent='Gebaseerd op de Mifflin-St Jeor-formule en de gekozen activiteitsfactor. Dit is een startschatting; je werkelijke behoefte kan afwijken.';document.getElementById('calcResult').classList.remove('hidden')});
+document.getElementById('applyCalories').addEventListener('click',()=>{document.getElementById('targetKcal').value=calculatedCalories;data.goals.kcal=calculatedCalories;save();alert('Caloriedoel opgeslagen.')});
+document.getElementById('exportBtn').addEventListener('click',()=>{const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='forgefit-backup-'+today()+'.json';a.click();URL.revokeObjectURL(a.href)});
+document.getElementById('importBtn').addEventListener('click',()=>document.getElementById('importFile').click());
+document.getElementById('importFile').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;try{const parsed=JSON.parse(await f.text());if(!parsed||!Array.isArray(parsed.food)||!Array.isArray(parsed.workouts)||!Array.isArray(parsed.measurements))throw Error('Ongeldig');data={...blank(),...parsed};save();alert('Back-up geïmporteerd.')}catch(err){alert('Dit bestand lijkt geen geldige ForgeFit-back-up.')}e.target.value=''});
+document.getElementById('resetBtn').addEventListener('click',()=>{if(confirm('Weet je zeker dat je ALLE ForgeFit-gegevens op dit apparaat wilt wissen? Maak eerst een back-up als je iets wilt bewaren.')){data=blank();save()}});
+function removeItem(type,id){if(!confirm('Dit item verwijderen?'))return;data[type]=data[type].filter(x=>x.id!==id);save()}
+function render(){
+ const foods=data.food.filter(x=>x.date===today());const sum=k=>foods.reduce((a,x)=>a+(Number(x[k])||0),0);const kcal=sum('kcal'),p=sum('protein'),c=sum('carbs'),f=sum('fat'),g=data.goals||blank().goals;
+ document.getElementById('dashKcal').textContent=fmt(kcal);document.getElementById('dashProtein').textContent=fmt(p);document.getElementById('dashCarbs').textContent=fmt(c)+' g';document.getElementById('dashFat').textContent=fmt(f)+' g';document.getElementById('dashMeals').textContent=foods.length;
+ document.getElementById('kcalBar').style.width=(g.kcal?Math.min(100,kcal/g.kcal*100):0)+'%';document.getElementById('proteinBar').style.width=(g.protein?Math.min(100,p/g.protein*100):0)+'%';document.getElementById('kcalTargetText').textContent=g.kcal?`${fmt(g.kcal-kcal)} kcal ${kcal>g.kcal?'boven doel':'over tot doel'}`:'Stel een caloriedoel in';document.getElementById('proteinTargetText').textContent=g.protein?`${fmt(p)} / ${fmt(g.protein)} g eiwit`:'Stel een eiwitdoel in';
+ const latest=[...data.measurements].sort((a,b)=>b.date.localeCompare(a.date))[0];document.getElementById('dashWeight').innerHTML=latest?`${fmt(latest.weight)}<small> kg</small>`:'—<small> kg</small>';document.getElementById('dashWeightChange').textContent=latest?(latest.fat!==null?`${fmt(latest.fat)}% vet · ${latest.date}`:`Laatste meting: ${latest.date}`):'Log je eerste meting';document.getElementById('dashWorkouts').textContent=data.workouts.length;
+ document.getElementById('foodTotal').textContent=fmt(kcal)+' kcal';document.getElementById('foodP').textContent=fmt(p)+' g';document.getElementById('foodC').textContent=fmt(c)+' g';document.getElementById('foodF').textContent=fmt(f)+' g';
+ document.getElementById('foodList').innerHTML=foods.length?foods.slice().reverse().map(x=>`<div class="item"><div><div class="item-title">${esc(x.name)}</div><div class="item-meta">${fmt(x.kcal)} kcal · P ${fmt(x.protein)} g · K ${fmt(x.carbs)} g · V ${fmt(x.fat)} g</div></div><button class="btn danger small" onclick="removeItem('food','${x.id}')">Wis</button></div>`).join(''):'<div class="empty">Nog geen voeding gelogd vandaag.</div>';
+ const workouts=[...data.workouts].sort((a,b)=>b.date.localeCompare(a.date));document.getElementById('workoutCount').textContent=`${workouts.length} logs`;document.getElementById('workoutList').innerHTML=workouts.length?workouts.map(x=>`<div class="item"><div><div class="item-title">${esc(x.name)}</div><div class="item-meta">${x.date} · ${x.sets} sets × ${x.reps} reps · ${fmt(x.weight)} kg</div></div><button class="btn danger small" onclick="removeItem('workouts','${x.id}')">Wis</button></div>`).join(''):'<div class="empty">Nog geen oefeningen gelogd.</div>';
+ const prs={};data.workouts.forEach(x=>{const key=x.name.trim().toLowerCase();if(!prs[key]||x.weight>prs[key].weight)prs[key]={...x}});const prVals=Object.values(prs).sort((a,b)=>a.name.localeCompare(b.name));document.getElementById('recordsList').innerHTML=prVals.length?prVals.map(x=>`<div class="item"><div><div class="item-title">${esc(x.name)}</div><div class="item-meta">Hoogste gelogde gewicht · ${x.date}</div></div><span class="pill">${fmt(x.weight)} kg</span></div>`).join(''):'<div class="empty">Je records verschijnen zodra je oefeningen logt.</div>';
+ const measures=[...data.measurements].sort((a,b)=>a.date.localeCompare(b.date));document.getElementById('weightHistory').innerHTML=measures.slice().reverse().map(x=>`<div class="item"><div><div class="item-title">${fmt(x.weight)} kg${x.fat!==null?' · '+fmt(x.fat)+'% vet':''}</div><div class="item-meta">${x.date}</div></div><button class="btn danger small" onclick="removeItem('measurements','${x.id}')">Wis</button></div>`).join('')||'<div class="empty">Nog geen metingen opgeslagen.</div>';
+ drawChart('weightChart',measures.filter(x=>Number.isFinite(x.weight)), 'weight','kg');drawChart('fatChart',measures.filter(x=>x.fat!==null&&Number.isFinite(x.fat)),'fat','%');
+ ['kcal','protein','carbs','fat'].forEach(k=>{const el=document.getElementById('target'+k.charAt(0).toUpperCase()+k.slice(1));if(el&&document.activeElement!==el)el.value=g[k]||''});
+}
+function drawChart(id,arr,key,unit){const el=document.getElementById(id);if(arr.length<2){el.innerHTML=`<div class="chart-empty">Voeg minimaal twee metingen toe</div>`;return}const vals=arr.map(x=>x[key]),min=Math.min(...vals),max=Math.max(...vals),range=max-min||1;const pts=vals.map((v,i)=>`${8+i*(84/(vals.length-1))},${132-(v-min)/range*108}`).join(' ');const dots=vals.map((v,i)=>`<circle cx="${8+i*(84/(vals.length-1))}" cy="${132-(v-min)/range*108}" r="2.8" fill="#b7f34a"/>`).join('');el.innerHTML=`<svg viewBox="0 0 100 150" preserveAspectRatio="none" aria-label="Grafiek ${unit}"><polyline points="${pts}" fill="none" stroke="#b7f34a" stroke-width="1.5" vector-effect="non-scaling-stroke"/>${dots}</svg><div class="row tiny" style="margin-top:3px"><span>${arr[0].date}</span><span>${fmt(min)}–${fmt(max)} ${unit}</span><span>${arr[arr.length-1].date}</span></div>`}
+render();
+if('serviceWorker' in navigator && location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+</script>
+</body></html>
